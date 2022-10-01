@@ -4,8 +4,10 @@ export default function Stub({stub, i, setUpdated, baseUrl}) {
     const [currentStub, setCurrentStub] = useState(stub)
     const [clicks, setClicks] = useState(0)
     const [clickedId, setClickedId] = useState(-1)
+    const [showWin, setShowWin] = useState(false)
 
     const openStub = () => {
+
         // initial click
         if (clicks === 0) {
             setClicks(1)
@@ -41,9 +43,11 @@ export default function Stub({stub, i, setUpdated, baseUrl}) {
             <div className="stub-header">
                 <i className="ph-lightning-light"></i>
                     <h3>
-                        {i<=9 && currentStub.open === false && <span>‎ ‎ ‎ {i}</span>}
-                        {i>9 && currentStub.open === false && <span>‎ ‎ {i}</span>}
-                        {currentStub.open && currentStub.prize === false && <span>‎ ‎ 😭</span>}
+                        {showWin && i<=9 && currentStub.open === false && currentStub.prize && <span className='i-less'>{i}</span>}
+                        {showWin && i>9 && currentStub.open === false && currentStub.prize && <span className='i-more'>{i}</span>}
+                        {showWin === false && i<=9 && currentStub.open === false && <span className='i-less'>{i}</span>}
+                        {showWin === false && i>9 && currentStub.open === false && <span className='i-more'>{i}</span>}
+                        {currentStub.open && currentStub.prize === false && <span className='sad'>😭</span>}
                         {currentStub.open && currentStub.prize && <span>WIN</span>}
                     </h3>
             </div>

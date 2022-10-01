@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6965d5fd.css",
+    "main.js": "/static/js/main.faca79bf.js",
+    "index.html": "/index.html",
+    "static/media/baseurl.txt": "/static/media/baseurl.0ad12037a7bd8477a653.txt",
+    "main.6965d5fd.css.map": "/static/css/main.6965d5fd.css.map",
+    "main.faca79bf.js.map": "/static/js/main.faca79bf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6965d5fd.css",
+    "static/js/main.faca79bf.js"
+  ]
+}

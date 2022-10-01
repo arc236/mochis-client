@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Stat from './Stat'
 import StubList from './StubList'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import base from '../constants/baseurl.txt';
 
 
 export default function Promo({serial}) {
@@ -12,26 +13,34 @@ export default function Promo({serial}) {
     const [stubs, setStubs] = useState([])
     const [updated, setUpdated] = useState(false)
     const [initialized, setInitialized] = useState(false)
-    
-    const base_url = 'http://192.168.68.104:7777'
+    const [baseUrl, setBaseUrl] = useState("")
 
     useEffect(() => {
+        fetch(base)
+            .then(r => r.text())
+            .then(url => {
+                setBaseUrl(url)
+            })
+    }, [setBaseUrl])
+
+    useEffect(() => {
+
         if (isDarkMode) {
             document.body.style.background = "#1f1f1f";
         } else {
             document.body.style.background = "white";
         }
         
-        fetch(`${base_url}/api/v1/batches/status/${currentSerial}`)
+        fetch(`${baseUrl}/api/v1/batches/status/${currentSerial}`)
         .then(res => res.json())
         .then(status => {
             setBatchStatus(status)
             setInitialized(true)
         })
-    }, [setBatchStatus, currentSerial, isDarkMode])
+    }, [setBatchStatus, currentSerial, isDarkMode, baseUrl])
 
     if (initialized) {
-        fetch(`${base_url}/api/v1/stubs?batch_id=${batchStatus.id}`)
+        fetch(`${baseUrl}/api/v1/stubs?batch_id=${batchStatus.id}`)
         .then(res => res.json())
         .then(stubs => {
             setStubs(stubs)
@@ -40,7 +49,7 @@ export default function Promo({serial}) {
     }
 
     if (updated) {
-        fetch(`${base_url}/api/v1/batches/status/${currentSerial}`)
+        fetch(`${baseUrl}/api/v1/batches/status/${currentSerial}`)
         .then(res => res.json())
         .then(status => {
             setBatchStatus(status)
@@ -51,7 +60,7 @@ export default function Promo({serial}) {
     const createNewBatch = () => {
         if (newSerial.trim().length >= 5) {
             console.log("Creating new batch: ", newSerial)
-            fetch(`${base_url}/api/v1/batches/create/${newSerial}`, {method: "POST"})
+            fetch(`${baseUrl}/api/v1/batches/create/${newSerial}`, {method: "POST"})
             .then(res => res.json())
             .then(data => {
                 setCurrentSerial(data.batch_serial)
@@ -106,7 +115,8 @@ export default function Promo({serial}) {
                 <Stat title="Opened Prizes" value={batchStatus.opened_prizes}/>
                 <Stat title="Remaining Prizes" value={batchStatus.remaining_prizes}/>
             </div>
-            <StubList stubs={stubs} setUpdated={setUpdated} baseUrl={base_url}></StubList>
+            <StubList stubs={stubs} setUpdated={setUpdated} baseUrl={baseUrl}></StubList>
+            <a className='baseUrl' href={baseUrl.replace("7777", "3000")}>{baseUrl.replace("7777", "3000")}</a>
         </div>
     )
 }

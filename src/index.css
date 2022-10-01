@@ -10,7 +10,7 @@
   --c-gray-200: #f1f1f1;
   --c-gray-100: #ffffff;
   --c-green-500: #45ffbc;
-  --c-olive-500: #e3ffa8;
+  --c-olive-500: #fdbe00;
   --c-white: var(--c-gray-100);
   --c-text-primary: var(--c-gray-900);
   --c-text-secondary: var(--c-gray-200);
@@ -121,54 +121,36 @@ button:focus {
   }
 }
 
-.stub {
-  padding: 1rem;
-  border-radius: 8px;
-  color: var(--c-gray-900);
-  max-width: 65px;
-  max-height: 65px;
-  min-width: 65px;
-  min-height: 65px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  transition: 0.25s ease;
-  background-color: burlywood;
-}
-
-.stub-opened{
-  padding: 1rem;
-  border-radius: 8px;
-  color: var(--c-gray-900);
-  max-width: 65px;
-  max-height: 65px;
-  min-width: 65px;
-  min-height: 65px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  transition: 0.25s ease;
-  background-color: grey;
-  animation: flip 0.5s ease forwards;
-}
-
+.stub,
+.stub-opened,
 .stub-opened-win{
   padding: 1rem;
   border-radius: 8px;
-  border-color: white;
   color: var(--c-gray-900);
   max-width: 65px;
   max-height: 65px;
-  min-width: 65px;
+  min-width: 65;
   min-height: 65px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   transition: 0.25s ease;
-  animation: win 0.5s ease forwards;
+}
+
+.stub {
+  background-color: #00fd9c;
+  animation: bounce 1s ease forwards;
+  animation-iteration-count: infinite;
+}
+
+.stub-opened{
+  background-color: grey;
+  animation: flip 2s ease forwards;
+}
+
+.stub-opened-win{
+  animation: win 2s ease forwards;
   background-color: palevioletred;
 }
 
@@ -193,11 +175,32 @@ button:focus {
   line-height: 1.375;
 }
 .stub-header h3 span:first-child {
-  font-weight: 600;
+  font-weight: 900;
 }
+.stub-header h3 span.i-less {
+  font-size: 0.825em;
+  font-weight: 900;
+  position: relative;
+  left: 10px;
+}
+
+.stub-header h3 span.i-more {
+  font-size: 0.825em;
+  font-weight: 900;
+  position: relative;
+  left: 5px;
+}
+
+.stub-header h3 span.sad {
+  font-size: 0.825em;
+  font-weight: 900;
+  position: relative;
+  left: 7px;
+}
+
 .stub-header h3 span:last-child {
   font-size: 0.825em;
-  font-weight: 200;
+  font-weight: 900;
 }
 
 .stub-clicked{
@@ -280,13 +283,25 @@ button:focus {
   0% { 
     transform: scale(1);
     border-color: #ddd;
+    background-color: #00fd9c;
+  }
+  20% { 
+    transform: scale(1.05);
+    border-color: #ddd;
+    background-color: #00fd72;
   }
   50% { 
-    transform: scale(1.2);
+    transform: scale(1.1);
+    background-color: #00fd50;
+  }
+  70% { 
+    transform: scale(1.05);
+    background-color: #00fd72;
   }
   100% {
     transform: scale(1);
     border-color: #333;
+    background-color: #00fd9c;
   }
 }
 
@@ -301,4 +316,10 @@ button:focus {
 .close-button {
   min-height: 10px;
   min-width: 10px;
+}
+
+.baseUrl {
+  position: relative;
+  font-size: xx-small;
+  left: 750px;
 }
